@@ -18,30 +18,32 @@ const UpiCollectPage = () => {
 
   // ✅ Handle Payment Redirect (direct UPI app redirection)
   const handlePayment = (app) => {
-    if (!amount || amount < 1) {
-      alert("Enter a valid amount");
-      return;
-    }
+  if (!amount || amount < 1) {
+    alert("Enter a valid amount");
+    return;
+  }
 
-    let upiUrl = "";
+  const randomTid = Math.floor(100000000000 + Math.random() * 900000000000); // 12-digit random integer
+  let upiUrl = "";
 
-    switch (app) {
-      case "phonepe":
-        upiUrl = `phonepe://pay?pa=${MERCHANT_UPI_ID}&pn=${MERCHANT_NAME}&am=${amount}&cu=INR`;
-        break;
-      case "gpay":
-        upiUrl = `gpay://upi/pay?pa=${MERCHANT_UPI_ID}&pn=${MERCHANT_NAME}&mc=3526&am=${amount}&cu=INR`;
-        break;
-      case "paytm":
-        upiUrl = `paytmmp://cash_wallet?featuretype=money_transfer&pa=${MERCHANT_UPI_ID}&am=${amount}&pn=${MERCHANT_NAME}`;
-        break;
-      default:
-        upiUrl = generateUpiLink();
-    }
+  switch (app) {
+    case "phonepe":
+      upiUrl = `phonepe://pay?pa=${MERCHANT_UPI_ID}&pn=${MERCHANT_NAME}&am=${amount}&cu=INR`;
+      break;
+    case "gpay":
+      upiUrl = `gpay://upi/pay?pa=${MERCHANT_UPI_ID}&pn=${MERCHANT_NAME}&mc=3526&am=${amount}&cu=INR`;
+      break;
+    case "paytm":
+      upiUrl = `paytmmp://cash_wallet?featuretype=money_transfer&pa=${MERCHANT_UPI_ID}&am=${amount}&pn=${MERCHANT_NAME}&tid=${randomTid}`;
+      break;
+    default:
+      upiUrl = generateUpiLink(); // fallback UPI link generator
+  }
 
-    // Redirect user to UPI app
-    window.location.href = upiUrl;
-  };
+  // Redirect user to UPI app
+  window.location.href = upiUrl;
+};
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 flex justify-center items-center">
