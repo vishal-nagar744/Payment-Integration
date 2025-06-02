@@ -3,7 +3,7 @@ import QRCode from "react-qr-code";
 import { FaRupeeSign, FaGooglePay, FaPhone, FaWallet } from "react-icons/fa";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 
-const MERCHANT_UPI_ID = "7440359948@fam";
+const MERCHANT_UPI_ID = "9806851570@ptaxis";
 const MERCHANT_NAME = "Trading Account";
 
 const UpiCollectPage = () => {
